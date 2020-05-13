@@ -1,0 +1,16 @@
+.DS_Store
+.idea
+*.log
+
+*.py[cod]
+*.egg
+build
+htmlcov
+
+tmp/*
+!tmp/.gitkeep
+tmp/db/*
+!tmp/db/.gitkeep
+
+data/*
+!data/.gitkeep
