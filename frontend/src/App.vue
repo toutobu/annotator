@@ -15,6 +15,13 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  font-size: 16px;
+ }
+
+ul, li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
 #nav {
