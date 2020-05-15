@@ -1,6 +1,9 @@
 import { ActionTree, Module, MutationTree } from 'vuex';
 
-import persister, { assertSucceeded } from '@/persister';
+import persister, {
+  assertSucceeded,
+  IndexItem as PersisterIndexItem,
+} from '@/persister';
 
 export interface State {
   index: Array<IndexItem>;
@@ -10,14 +13,6 @@ export interface IndexItem {
   id: string;
   title: string;
   url: string;
-}
-
-interface IndexResponse {
-  pk: string;
-  fields: {
-    title: string;
-    url: string;
-  };
 }
 
 const mutations: MutationTree<State> = {
@@ -31,12 +26,12 @@ const actions: ActionTree<State, {}> = {
     const response = await persister.examples.getIndex();
     assertSucceeded(response);
     const data = await response.json();
-    const conv = (d: IndexResponse) => ({ id: d.pk, ...d.fields });
+    const conv = (d: PersisterIndexItem) => ({ id: d.pk, ...d.fields });
     commit('set', { index: data.map(conv) });
   },
 };
 
-const disclosedWorld: Module<State, {}> = {
+const examples: Module<State, {}> = {
   namespaced: true,
   state: {
     index: [],
@@ -45,4 +40,4 @@ const disclosedWorld: Module<State, {}> = {
   mutations,
 };
 
-export default disclosedWorld;
+export default examples;

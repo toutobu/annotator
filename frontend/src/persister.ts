@@ -1,5 +1,13 @@
 /* eslint max-classes-per-file: off */
 
+export interface IndexItem {
+  pk: string;
+  fields: {
+    title: string;
+    url: string;
+  };
+}
+
 // TODO: Extract this to environment variables.
 const BACKEND_URL = '/api';
 
