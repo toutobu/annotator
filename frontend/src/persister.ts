@@ -1,17 +1,48 @@
+import Vue from 'vue';
+
 /* eslint max-classes-per-file: off */
 
-// TODO: Extract this to environment variables.
-const BACKEND_URL = '/api';
+export interface IndexItem {
+  id: string;
+  title: string;
+  url: string;
+}
+
+const BACKEND_URL = process.env.VUE_APP_BACKEND_API_URL;
+const SCOPE = process.env.VUE_APP_AUTH0_SCOPE;
 
 const url = (path: string) => `${BACKEND_URL}/${path.replace(/^\//, '')}`;
 
-const examples = {
-  getIndex() {
-    return fetch(url('/examples'));
-  },
-};
+function getTokenSilently() {
+  return Vue.prototype.$auth.getTokenSilently.call(Vue.prototype);
+}
 
-export default { examples };
+class Resource {
+  // eslint-disable-next-line class-methods-use-this
+  async request(resourceUrl: string, options: RequestInit = {}) {
+    const token = await getTokenSilently();
+    return fetch(resourceUrl, {
+      ...options,
+      headers: {
+        ...options.headers,
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  }
+}
+
+class Persister {
+  // eslint-disable-next-line class-methods-use-this
+  get examples() {
+    return new (class extends Resource {
+      getIndex() {
+        return this.request(url('/examples'));
+      }
+    })();
+  }
+}
+
+export default new Persister();
 
 export class UserError extends Error {}
 export class ServerError extends Error {}
