@@ -11,6 +11,11 @@ mysqlclient = "^1.4.6"
 django = "^3.0.6"
 django-extensions = "^2.2.9"
 ipython = "^7.14.0"
+cryptography = "^2.9.2"
+django-cors-headers = "^3.2.1"
+drf-jwt = "^1.16.1"
+pyjwt = "^1.7.1"
+requests = "^2.23.0"
 djangorestframework = "^3.11.0"
 
 [tool.poetry.dev-dependencies]

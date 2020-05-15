@@ -4,6 +4,9 @@ import VueRouter, { RouteConfig } from 'vue-router';
 import Home from '../views/Home.vue';
 import Examples from '../views/Examples.vue';
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const { authGuard } = require('../auth/authGuard');
+
 Vue.use(VueRouter);
 
 const routes: Array<RouteConfig> = [
@@ -24,6 +27,7 @@ const routes: Array<RouteConfig> = [
     path: '/examples',
     name: 'Examples',
     component: Examples,
+    beforeEnter: authGuard,
   },
 ];
 

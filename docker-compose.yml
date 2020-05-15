@@ -9,6 +9,9 @@ services:
       - .:/app
     depends_on:
       - db
+    environment:
+      AUTH0_API_DOMAIN: "dev-9t4hfnwv.auth0.com"
+      AUTH0_API_IDENTIFIER: "https://api.toutobu.io"
   frontend:
     build: ./frontend
     command: npm run serve

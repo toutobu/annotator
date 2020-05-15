@@ -22,7 +22,7 @@ const examples = namespace('examples');
 export default class Examples extends Vue {
   @examples.State index?: Array<IndexItem>;
 
-  mounted() {
+  async mounted() {
     this.$store.dispatch('examples/index');
   }
 }
