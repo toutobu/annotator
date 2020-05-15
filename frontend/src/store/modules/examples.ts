@@ -9,11 +9,7 @@ export interface State {
   index: Array<IndexItem>;
 }
 
-export interface IndexItem {
-  id: string;
-  title: string;
-  url: string;
-}
+export type IndexItem = PersisterIndexItem;
 
 const mutations: MutationTree<State> = {
   set(state, { index }: { index: Array<IndexItem> }) {
@@ -26,8 +22,7 @@ const actions: ActionTree<State, {}> = {
     const response = await persister.examples.getIndex();
     assertSucceeded(response);
     const data = await response.json();
-    const conv = (d: PersisterIndexItem) => ({ id: d.pk, ...d.fields });
-    commit('set', { index: data.map(conv) });
+    commit('set', { index: data });
   },
 };
 

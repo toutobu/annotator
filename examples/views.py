@@ -1,10 +1,11 @@
-from django.core import serializers
-from django.http import HttpResponse
+from rest_framework import viewsets
+from rest_framework import permissions
 
 from examples.models import Example
+from examples.serializers import ExampleSerializer
 
 
-def index(request):
-    examples = Example.objects.all()
-    fields = ('id', 'url', 'title')
-    return HttpResponse(serializers.serialize('json', examples, fields=fields))
+class IndexViewSet(viewsets.ModelViewSet):
+    queryset = Example.objects.all()
+    serializer_class = ExampleSerializer
+    #permission_classes = [permissions.IsAuthenticated]
