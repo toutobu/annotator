@@ -1,8 +1,12 @@
 from django.contrib.auth import authenticate
 import json
 import jwt
+import logging
 import os
 import requests
+
+
+logger = logging.getLogger(__name__)
 
 
 def jwt_get_username_from_payload_handler(payload):
