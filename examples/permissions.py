@@ -1,5 +1,9 @@
 import jwt
+import logging
 from rest_framework import permissions
+
+
+logger = logging.getLogger(__name__)
 
 
 class IsPermittedScope(permissions.BasePermission):
@@ -14,7 +18,7 @@ class IsPermittedScope(permissions.BasePermission):
             decoded = jwt.decode(token, verify=False)
             if decoded.get('scope'):
                 token_scopes = decoded['scope'].split()
-                return 'read:examples' in token_scopes
+                return self.required_scope in token_scopes
 
     def get_token_auth_header(self, request):
         auth = request.META.get('HTTP_AUTHORIZATION', None)

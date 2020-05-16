@@ -14,7 +14,9 @@ const SCOPE = process.env.VUE_APP_AUTH0_SCOPE;
 const url = (path: string) => `${BACKEND_URL}/${path.replace(/^\//, '')}`;
 
 function getTokenSilently() {
-  return Vue.prototype.$auth.getTokenSilently.call(Vue.prototype);
+  return Vue.prototype.$auth.getTokenSilently.call(Vue.prototype, {
+    scope: SCOPE,
+  });
 }
 
 class Resource {
