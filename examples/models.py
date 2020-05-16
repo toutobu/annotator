@@ -36,6 +36,9 @@ class Annotation(models.Model):
     created_date = models.DateTimeField(default=now)
     updated_date = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        unique_together = ['example', 'annotated_by']
+
     def __str__(self):
         return '{}, Example: {}, Annotated By: {}'.format(
             self.id, self.example.id, self.annotated_by.username)
