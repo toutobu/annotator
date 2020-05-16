@@ -43,12 +43,13 @@ def batched_examples_from(directory, size=10):
 
 
 def insert_examples(apps, _):
+    Reference = apps.get_model('examples', 'Reference')
     Example = apps.get_model('examples', 'Example')
 
     def data_directory(x):
         return os.path.join(settings.BASE_DIR, 'data', x)
 
-    def create_example(directory, datum):
+    def create_example(directory, reference, datum):
         def datum_asdict():
             d = datum._asdict()
             return {x: d[x] for x in datum._fields if x != 'filename'}
@@ -57,21 +58,27 @@ def insert_examples(apps, _):
             details = json.load(f)
 
         return Example(**{
+            'reference': Reference(id=reference),
             **datum_asdict(),
             **details,
         })
 
     size = 10
 
-    for directory in map(data_directory, example_directories):
+    Reference.objects.bulk_create(
+        [Reference(id=d) for d in example_directories])
+
+    for reference, directory in (
+            zip(example_directories,
+                map(data_directory, example_directories))):
         for data in batched_examples_from(directory, size):
-            examples = map(functools.partial(create_example, directory), data)
-            Example.objects.bulk_create(examples, size)
+            _create = functools.partial(create_example, directory, reference)
+            Example.objects.bulk_create(map(_create, data), size)
 
 
 def delete_examples(apps, _):
     Example = apps.get_model('examples', 'Example')
-    Example.objects.delete()
+    Example.objects.all().delete()
 
 
 class Migration(migrations.Migration):
