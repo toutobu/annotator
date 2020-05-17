@@ -19,11 +19,11 @@ const examples = namespace('examples');
     ExampleList,
   },
 })
-export default class Examples extends Vue {
+export default class ExampleIndex extends Vue {
   @examples.State index?: Array<IndexItem>;
 
   async mounted() {
-    this.$store.dispatch('examples/index');
+    this.$store.dispatch('examples/list');
   }
 }
 </script>

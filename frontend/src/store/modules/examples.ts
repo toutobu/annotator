@@ -1,28 +1,45 @@
 import { ActionTree, Module, MutationTree } from 'vuex';
 
 import persister, {
-  assertSucceeded,
   IndexItem as PersisterIndexItem,
+  Morpheme,
 } from '@/persister';
+
+export interface CurrentExample {
+  id?: number;
+  title?: string;
+  content?: string;
+  morphemes?: Array<Morpheme>;
+}
 
 export interface State {
   index: Array<IndexItem>;
+  current: CurrentExample;
 }
 
 export type IndexItem = PersisterIndexItem;
 
 const mutations: MutationTree<State> = {
-  set(state, { index }: { index: Array<IndexItem> }) {
-    state.index = index;
+  set(state, {
+    index, current,
+  }: {
+    index?: Array<IndexItem>;
+    current?: CurrentExample;
+  }) {
+    state.index = index || state.index;
+    state.current = current || state.current;
   },
 };
 
 const actions: ActionTree<State, {}> = {
-  async index({ commit }) {
-    const response = await persister.examples.getIndex();
-    assertSucceeded(response);
-    const data = await response.json();
+  async list({ commit }) {
+    const data = await persister.examples.list();
     commit('set', { index: data });
+  },
+
+  async retrieve({ commit }, { id }: { id: number }) {
+    const data = await persister.examples.retrieve(id);
+    commit('set', { current: data });
   },
 };
 
@@ -30,6 +47,12 @@ const examples: Module<State, {}> = {
   namespaced: true,
   state: {
     index: [],
+    current: {
+      id: 0,
+      title: '',
+      content: '',
+      morphemes: [],
+    },
   },
   actions,
   mutations,

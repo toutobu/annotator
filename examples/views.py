@@ -30,6 +30,4 @@ class ExampleViewSet(viewsets.ReadOnlyModelViewSet):
         if self.action == 'list':
             # morphemes は計算コストが高いので一覧には含めない
             kwargs['excluded_fields'] = ('morphemes',)
-            return ExampleSerializer(*args, **kwargs)
-        else:
-            return ExampleSerializer(*args, **kwargs)
+        return ExampleSerializer(*args, **kwargs)

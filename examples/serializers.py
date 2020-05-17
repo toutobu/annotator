@@ -2,7 +2,7 @@ import logging
 from rest_framework import serializers
 
 from examples.models import Annotation, Example
-from molpheme import analyzed
+import molpheme
 
 
 logger = logging.getLogger(__name__)
@@ -43,4 +43,5 @@ class ExampleSerializer(serializers.ModelSerializer):
                 self.fields.pop(field_name)
 
     def get_morphemes(self, obj):
-        return [MorphemeSerializer(m).data for m in analyzed(obj.content)]
+        return [MorphemeSerializer(m).data
+                for m in molpheme.analyzed(obj.content)]

@@ -1,10 +1,13 @@
 <template>
   <ul class="examples-list">
-    <li v-for="datum in index" :key="datum.id">
-      <a :href="datum.url">
-        {{ datum.title }}
-      </a>
-    </li>
+    <router-link
+      v-for="datum in index"
+      :key="datum.id"
+      :to="{ name: 'AnnotationEditor', params: { id: datum.id } }"
+      tag="li"
+    >
+      <a>{{ datum.title }}</a>
+    </router-link>
   </ul>
 </template>
 

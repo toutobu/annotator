@@ -2,7 +2,8 @@ import Vue from 'vue';
 import VueRouter, { RouteConfig } from 'vue-router';
 
 import Home from '../views/Home.vue';
-import Examples from '../views/Examples.vue';
+import AnnotationEditor from '../views/AnnotationEditor.vue';
+import ExampleIndex from '../views/ExampleIndex.vue';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const { authGuard } = require('../auth/authGuard');
@@ -25,8 +26,14 @@ const routes: Array<RouteConfig> = [
   },
   {
     path: '/examples',
-    name: 'Examples',
-    component: Examples,
+    name: 'ExampleIndex',
+    component: ExampleIndex,
+    beforeEnter: authGuard,
+  },
+  {
+    path: '/examples/:id',
+    name: 'AnnotationEditor',
+    component: AnnotationEditor,
     beforeEnter: authGuard,
   },
 ];
