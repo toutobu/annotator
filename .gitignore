@@ -14,5 +14,6 @@ tmp/db/*
 
 data/*
 !data/.gitkeep
+!data/sample
 
 *.egg-info/
