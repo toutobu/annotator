@@ -17,7 +17,7 @@ export interface Detail extends IndexItem {
 export interface Morpheme {
   surface: string;
   pos: string;
-  subpo1: string;
+  subpos1: string;
   originalForm: string;
 }
 

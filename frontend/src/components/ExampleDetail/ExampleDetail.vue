@@ -10,7 +10,7 @@
         :key="index"
         :surface="morpheme.surface"
         :pos="morpheme.pos"
-        :supos1="morpheme.supos1"
+        :subpos1="morpheme.subpos1"
         :originalForm="morpheme.originalForm"
       >
       </li>
@@ -41,4 +41,7 @@ export default class ExampleDetail extends Vue {
 </script>
 
 <style lang="less">
+.morphemes-container {
+  text-align: start;
+}
 </style>
