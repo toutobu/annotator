@@ -158,9 +158,9 @@ AUTHENTICATION_BACKENDS = [
 # https://github.com/Styria-Digital/django-rest-framework-jwt/
 JWT_AUTH = {
     'JWT_PAYLOAD_GET_USERNAME_HANDLER':
-        'annotator.utils.jwt_get_username_from_payload_handler',
+        'annotator.auth0utils.jwt_get_username_from_payload_handler',
     'JWT_DECODE_HANDLER':
-        'annotator.utils.jwt_decode_token',
+        'annotator.auth0utils.jwt_decode_token',
     'JWT_ALGORITHM': 'RS256',
     'JWT_AUDIENCE': os.environ['AUTH0_API_IDENTIFIER'],
     'JWT_ISSUER': 'https://dev-9t4hfnwv.auth0.com/',
