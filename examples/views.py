@@ -25,3 +25,11 @@ class ExampleViewSet(viewsets.ReadOnlyModelViewSet):
         return (Example.objects
                 .prefetch_related(Prefetch(
                     'annotation_set', queryset=annotations)))
+
+    def get_serializer(self, *args, **kwargs):
+        if self.action == 'list':
+            # morphemes は計算コストが高いので一覧には含めない
+            kwargs['excluded_fields'] = ('morphemes',)
+            return ExampleSerializer(*args, **kwargs)
+        else:
+            return ExampleSerializer(*args, **kwargs)
