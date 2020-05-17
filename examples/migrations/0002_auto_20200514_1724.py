@@ -52,7 +52,8 @@ def insert_examples(apps, _):
     def create_example(directory, reference, datum):
         def datum_asdict():
             d = datum._asdict()
-            return {x: d[x] for x in datum._fields if x != 'filename'}
+            return {x: d[x] for x in datum._fields
+                    if x not in ('id', 'filename')}
 
         with open(os.path.join(directory, datum.filename)) as f:
             details = json.load(f)

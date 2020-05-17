@@ -13,7 +13,6 @@ class Reference(models.Model):
 
 class Example(models.Model):
     """An example of business mails."""
-    id = models.CharField(primary_key=True, max_length=128)
     reference = models.ForeignKey(Reference, on_delete=models.CASCADE)
     annotators = models.ManyToManyField(User, through='Annotation')
     url = models.CharField(max_length=256, default='')
