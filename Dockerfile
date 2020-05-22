@@ -27,9 +27,7 @@ RUN apk add --no-cache make gcc g++ swig \
 # cleanup
   && cd /opt \
   && rm -rf \
-     mecab-${MECAB_VERSION}.tar.gz \
      mecab-${MECAB_VERSION} \
-     mecab-ipadic-${MECAB_IPADIC_VERSION}.tar.gz zxvf \
      mecab-ipadic-${MECAB_IPADIC_VERSION}
 
 ADD poetry.lock /app/poetry.lock
@@ -41,6 +39,7 @@ RUN apk add --no-cache \
   openssl-dev \
   mysql-client \
   mysql-dev \
+  git \
   && pip install poetry \
   && poetry install
 

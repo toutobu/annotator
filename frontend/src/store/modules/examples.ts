@@ -2,14 +2,14 @@ import { ActionTree, Module, MutationTree } from 'vuex';
 
 import persister, {
   IndexItem as PersisterIndexItem,
-  Morpheme,
+  PASCandidate,
 } from '@/persister';
 
 export interface CurrentExample {
   id?: number;
   title?: string;
-  content?: string;
-  morphemes?: Array<Morpheme>;
+  content?: string; // FIXME: content って何？
+  pascandidates?: Array<PASCandidate>;
 }
 
 export interface State {
@@ -51,7 +51,7 @@ const examples: Module<State, {}> = {
       id: 0,
       title: '',
       content: '',
-      morphemes: [],
+      pascandidates: [],
     },
   },
   actions,

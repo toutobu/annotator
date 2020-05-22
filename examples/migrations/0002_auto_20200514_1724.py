@@ -5,6 +5,7 @@ from collections import namedtuple
 from django.conf import settings
 from django.db import migrations
 import functools
+import glob
 import itertools
 import json
 import logging
@@ -14,9 +15,9 @@ import os
 logger = logging.getLogger(__name__)
 
 example_directories = [
-    'business-mail.jp-20200514',
-    'email.chottu.net-20200514',
-]
+    os.path.basename(d) for d
+    in glob.glob(os.path.join(f'{settings.BASE_DIR}/data/*'))]
+# example_directories = ['sample']
 
 index_filename = 'INDEX.csv'
 

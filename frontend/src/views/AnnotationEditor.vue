@@ -4,7 +4,7 @@
       :id="current.id"
       :title="current.title"
       :content="current.content"
-      :morphemes="current.morphemes"
+      :pascandidates="current.pascandidates"
     >
     </example-detail>
   </div>
@@ -14,7 +14,7 @@
 import { Component, Vue } from 'vue-property-decorator';
 import { namespace } from 'vuex-class';
 
-import ExampleDetail from '@/components/ExampleDetail.vue';
+import ExampleDetail from '@/components/ExampleDetail';
 import { CurrentExample } from '@/store/modules/examples';
 
 const examples = namespace('examples');

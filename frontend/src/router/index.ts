@@ -2,6 +2,7 @@ import Vue from 'vue';
 import VueRouter, { RouteConfig } from 'vue-router';
 
 import Home from '../views/Home.vue';
+// eslint-disable-next-line import/no-unresolved
 import AnnotationEditor from '../views/AnnotationEditor.vue';
 import ExampleIndex from '../views/ExampleIndex.vue';
 

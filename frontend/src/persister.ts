@@ -2,6 +2,11 @@ import Vue from 'vue';
 
 /* eslint max-classes-per-file: off */
 
+export enum UnitType {
+  OTHER = 'その他',
+  PREDICATE = '述語',
+}
+
 export interface IndexItem {
   id: string;
   title: string;
@@ -9,16 +14,22 @@ export interface IndexItem {
 }
 
 export interface Detail extends IndexItem {
-  morphemes: Array<Morpheme>;
+  pascandidates: Array<PASCandidate>;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   annotation: any;
+}
+
+export interface PASCandidate {
+  text: string;
+  unit: UnitType;
+  morphemes: Array<Morpheme>;
 }
 
 export interface Morpheme {
   surface: string;
   pos: string;
-  subpo1: string;
-  originalForm: string;
+  subpos1: string;
+  form: string;
 }
 
 const BACKEND_URL = process.env.VUE_APP_BACKEND_API_URL;
@@ -72,15 +83,7 @@ class Persister {
       async retrieve(id: number) {
         const response = await this.request(url(`/examples/${id}`));
         assertSucceeded(response);
-        const data = await response.json();
-        return {
-          ...data,
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          morphemes: data.morphemes.map((m: any) => ({
-            ...m,
-            originalForm: m.original_form,
-          })),
-        };
+        return response.json();
       }
     })();
   }

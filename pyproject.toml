@@ -19,6 +19,7 @@ requests = "^2.23.0"
 djangorestframework = "^3.11.0"
 django-mysql = "^3.5.0"
 mecab-python3 = "^0.996.5"
+pasnominator = {git = "https://github.com/toutobu/pasnominator", rev = "v0.0.1"}
 
 [tool.poetry.dev-dependencies]
 
