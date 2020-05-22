@@ -1,7 +1,6 @@
 import logging
 from django.db.models import Prefetch
 from rest_framework import viewsets
-from rest_framework.response import Response
 
 from examples import permissions
 from examples.models import Annotation, Example
@@ -29,5 +28,5 @@ class ExampleViewSet(viewsets.ReadOnlyModelViewSet):
     def get_serializer(self, *args, **kwargs):
         if self.action == 'list':
             # morphemes は計算コストが高いので一覧には含めない
-            kwargs['excluded_fields'] = ('morphemes',)
+            kwargs['excluded_fields'] = ('pascandidates',)
         return ExampleSerializer(*args, **kwargs)

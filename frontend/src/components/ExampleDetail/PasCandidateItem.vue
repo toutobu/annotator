@@ -1,14 +1,15 @@
 <template>
   <li
-    class="morpheme-item"
+    class="pas-candidate-item"
     :class="{ predicate: isPredicate }"
-    :title="{ pos, subpos1, originalForm } | formatMorphemeTitle"
-  >{{ surface | trim }}</li>
+    :title="morphemes | formatMorphemeTitle"
+  >{{ text | trim }}</li>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 
+import { Morpheme, UnitType } from '@/persister';
 import { formatMorphemeTitle, trim } from './filters';
 
 @Component({
@@ -18,22 +19,20 @@ import { formatMorphemeTitle, trim } from './filters';
   },
 })
 export default class MorphemeItem extends Vue {
-  @Prop() surface!: string;
+  @Prop() text!: string;
 
-  @Prop() pos!: string;
+  @Prop() unit!: string;
 
-  @Prop() subpos1!: string;
-
-  @Prop() originalForm!: string;
+  @Prop() morphemes!: Array<Morpheme>;
 
   get isPredicate() {
-    return ['動詞', '形容詞'].indexOf(this.pos) !== -1;
+    return this.unit === UnitType.PREDICATE;
   }
 }
 </script>
 
 <style lang="less">
-.morpheme-item {
+.pas-candidate-item {
   display: inline-block;
   padding: .1rem;
   margin: .2rem;

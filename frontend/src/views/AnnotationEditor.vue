@@ -4,7 +4,7 @@
       :id="current.id"
       :title="current.title"
       :content="current.content"
-      :morphemes="current.morphemes"
+      :pascandidates="current.pascandidates"
     >
     </example-detail>
   </div>

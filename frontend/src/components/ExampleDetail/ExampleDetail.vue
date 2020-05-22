@@ -3,15 +3,14 @@
     <h3 class="example-detail__title">
       {{ title }}
     </h3>
-    <ul class="morphemes-container">
+    <ul class="pas-candidates-container">
       <li
-        v-for="(morpheme, index) in morphemes"
-        is="morpheme-item"
+        v-for="(pascandidate, index) in pascandidates"
+        is="pas-candidate-item"
         :key="index"
-        :surface="morpheme.surface"
-        :pos="morpheme.pos"
-        :subpos1="morpheme.subpos1"
-        :originalForm="morpheme.originalForm"
+        :text="pascandidate.text"
+        :unit="pascandidate.unit"
+        :morphemes="pascandidate.morphemes"
       >
       </li>
     </ul>
@@ -21,12 +20,12 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 
-import { Morpheme } from '@/persister';
-import MorphemeItem from './MorphemeItem.vue';
+import { PASCandidate } from '@/persister';
+import PasCandidateItem from './PasCandidateItem.vue';
 
 @Component({
   components: {
-    MorphemeItem,
+    PasCandidateItem,
   },
 })
 export default class ExampleDetail extends Vue {
@@ -36,12 +35,12 @@ export default class ExampleDetail extends Vue {
 
   @Prop() content!: string;
 
-  @Prop() morphemes!: Array<Morpheme>;
+  @Prop() pascandidates!: Array<PASCandidate>;
 }
 </script>
 
 <style lang="less">
-.morphemes-container {
+.pas-candidates-container {
   text-align: start;
 }
 </style>

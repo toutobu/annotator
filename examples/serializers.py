@@ -1,8 +1,8 @@
 import logging
+from pasnominator import nominator
 from rest_framework import serializers
 
 from examples.models import Annotation, Example
-import molpheme
 
 
 logger = logging.getLogger(__name__)
@@ -18,17 +18,26 @@ class MorphemeSerializer(serializers.Serializer):
     surface = serializers.CharField(max_length=128)
     pos = serializers.CharField(max_length=32)
     subpos1 = serializers.CharField(max_length=32)
-    original_form = serializers.CharField(max_length=128)
+    form = serializers.CharField(max_length=128)
+
+
+class PASCandidateSerializer(serializers.Serializer):
+    text = serializers.CharField(max_length=128)
+    unit = serializers.SerializerMethodField()
+    morphemes = MorphemeSerializer(many=True)
+
+    def get_unit(self, obj):
+        return obj.unit.value
 
 
 class ExampleSerializer(serializers.ModelSerializer):
-    morphemes = serializers.SerializerMethodField()
+    pascandidates = serializers.SerializerMethodField()
     annotation = AnnotationSerializer(
         source='annotation_set', many=True, read_only=True)
 
     class Meta:
         model = Example
-        fields = ['id', 'url', 'title', 'annotation', 'morphemes']
+        fields = ['id', 'url', 'title', 'annotation', 'pascandidates']
 
     def __init__(self, *args, **kwargs):
         # Don't pass the 'excluded_fields' arg up to the superclass
@@ -42,6 +51,6 @@ class ExampleSerializer(serializers.ModelSerializer):
             for field_name in excluded_fields:
                 self.fields.pop(field_name)
 
-    def get_morphemes(self, obj):
-        return [MorphemeSerializer(m).data
-                for m in molpheme.analyzed(obj.content)]
+    def get_pascandidates(self, obj):
+        return [PASCandidateSerializer(m).data
+                for m in nominator.analyze(obj.content)]

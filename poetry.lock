@@ -264,6 +264,21 @@ testing = ["docopt", "pytest (>=3.0.7)"]
 
 [[package]]
 category = "main"
+description = ""
+name = "pasnominator"
+optional = false
+python-versions = "^3.7"
+version = "0.0.1"
+
+[package.dependencies]
+mecab-python3 = "^0.996.5"
+
+[package.source]
+reference = "6badfc0dfe5d1aadee97011fe61b1fb113a71e19"
+type = "git"
+url = "https://github.com/toutobu/pasnominator"
+[[package]]
+category = "main"
 description = "Pexpect allows easy control of interactive console applications."
 marker = "sys_platform != \"win32\""
 name = "pexpect"
@@ -411,7 +426,7 @@ python-versions = "*"
 version = "0.1.9"
 
 [metadata]
-content-hash = "55ae6e2a9c0e0d1667f20a3fc725639b82ad46c029538e1084b4986eedf3285c"
+content-hash = "673530fa36822fcd2998e0a2440f45ef438dcd01f13896d373061c9353898462"
 python-versions = "^3.7"
 
 [metadata.files]
@@ -575,6 +590,7 @@ parso = [
     {file = "parso-0.7.0-py2.py3-none-any.whl", hash = "sha256:158c140fc04112dc45bca311633ae5033c2c2a7b732fa33d0955bad8152a8dd0"},
     {file = "parso-0.7.0.tar.gz", hash = "sha256:908e9fae2144a076d72ae4e25539143d40b8e3eafbaeae03c1bfe226f4cdf12c"},
 ]
+pasnominator = []
 pexpect = [
     {file = "pexpect-4.8.0-py2.py3-none-any.whl", hash = "sha256:0b48a55dcb3c05f3329815901ea4fc1537514d6ba867a152b581d69ae3710937"},
     {file = "pexpect-4.8.0.tar.gz", hash = "sha256:fc65a43959d153d0114afe13997d439c22823a27cefceb5ff35c2178c6784c0c"},
